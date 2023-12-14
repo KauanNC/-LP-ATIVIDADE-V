@@ -6,6 +6,7 @@
 struct produto
 {
     char nome[200];
+    char validade[200];
     float preco;
     int estoque;
 };
@@ -14,71 +15,71 @@ void atualizarEstoque(int *quantidadeEstoque, float preco, int quantidadeProduto
 {
     *quantidadeEstoque -= quantidadeProduto;
     printf("Quantidade atual no estoque: %d\n", *quantidadeEstoque);
-    printf("PreÁo total em estoque: %f\n", *quantidadeEstoque * preco);
-}
-
-void notaFIscal()
-{
+    printf("Pre√ßo total em estoque: %f\n", *quantidadeEstoque * preco);
 }
 int main()
 {
     setlocale(LC_ALL, "portuguese");
-    int  opcao, escolha, quantidadeDesejada, produtos;
+    int  opcao, escolha,tipodepagamento, produtos;
 
-    printf("VocÍ È cliente ou funcion·rio?\n");
-    printf("1 - Funcion·rio \n2 - Cliente\n");
-    printf("Informe a opÁ„o desejada:");
+    printf("Voc√™ √© cliente ou funcion√°rio?\n");
+    printf("1 - Funcion√°rio \n2 - Cliente\n");
+    printf("Informe a op√ß√£o desejada:");
     scanf("%d", &escolha);
 
     system("clear||cls");
 
     struct produto cadastro;
-
+    
     switch (escolha)
     {
     case 1:
-    
-        printf("===== OP«’ES DISPONÕVEIS =====\n");
-        printf("1 - Cadastro de produtos \n 2 - Sair do programa\n");
-        printf("Informe a opÁ„o desejada:");
+       do
+       {
+        printf("===== OP√á√ïES DISPON√çVEIS =====\n");
+        printf("1 - Cadastro de produtos \n 2 - exibir estoque\n");
+        printf("Informe a op√ß√£o desejada:");
         scanf("%d", &opcao);
         printf("===============================\n");
         system("cls||clear");
-
-        if (opcao == 1)
+     
+       switch (opcao)
         {  
+            case 1:
             printf("Informe o nome do produto:");
             scanf("%s", cadastro.nome);
+             printf("Informe a quantidade no estoque:");
+            scanf("%d", &cadastro.estoque);
             printf("Informe o valor do produto: ");
             scanf("%f", &cadastro.preco);
-            printf("Informe a quantidade no estoque:");
-            scanf("%d", &cadastro.estoque);
+            printf("Digite a data de validade : ");
+            scanf("%s", cadastro.validade);
             
-    
             system("cls||clear");
             fflush(stdin);
-
-            printf("===== OP«’ES DISPONÕVEIS =====\n");
-            printf("1 - Cadastrar mais produtos \n 2 - exibir estoque\n");
-            printf("Informe a opÁ„o desejada:");
-            scanf("%d", &opcao);
-            printf("===============================\n");
-            system("cls||clear");
-
-
-        }
-        else if (opcao == 2)
-        {
-            return 0;
-        }
-
-        system("cls||clear");
+            break;
+          case 2:
+        printf("=========EXIBI√á√ÉO DE ESTOQUE=========\n");
+        printf("Nome do produto: %s\n", cadastro.nome);
+        printf("Quantidade em estoque: %d\n", cadastro.estoque);
+        printf("Pre√ßo do produto: %.2f$\n", cadastro.preco);
+        printf("validade do produto : %s\n", cadastro.validade);
+        printf("======================================\n");
+        return 0;
+        break;
+        default :
+        return 0;
         break;
     }
-    printf("===== OP«’ES DISPONÕVEIS =====\n");
-    printf("1 - RealizaÁ„o de Compras \n2 - Nota Fiscal ('Encerramento do Programa) \n");
+    } while (opcao !=3);
+    
+    case 2:
+    do
+    {
+    printf("===== OP√á√ïES DISPON√çVEIS =====\n");
+    printf("1 - Realiza√ß√£o de Compras \n2 - Nota Fiscal\n");
     printf("===============================\n");
-    printf("Informe a opÁ„o desejada:");
+    printf("Informe a op√ß√£o desejada:");
     scanf("%d", &opcao);
 
     system("clear||cls");
@@ -87,24 +88,42 @@ int main()
     switch (opcao)
     {
     case 1:
-        printf("Informe o nome do produto:");
+        printf("nome do produto:");
         scanf("%s", cadastro.nome);
-        printf("Informe o valor do produto: ");
+        printf("o valor do produto: ");
         scanf("%f", &cadastro.preco);
-        printf("Informe a quantidade no estoque:");
+        printf("Digite a quantidade desejada:");
         scanf("%d", &cadastro.estoque);
+        
+    system("clear||cls");
+    fflush(stdin);
+        do
+        {
+        system("clear||cls");
+        printf("==========TIPO DE PAGAMENTO===========\n");
+        printf("1 - Dinheiro\n2 - Cart√£o\n");
+        printf("======================================\n");
+        printf("Qual tipo de pagamento :");
+        scanf("%d", &tipodepagamento);
+        }while (tipodepagamento !=1 && tipodepagamento!=2);
+    system("clear||cls");
         break;
 
     case 2:
+        printf("=========NOTA FISCAL=========\n");
         printf("Nome do produto: %s\n", cadastro.nome);
-        printf("Digite a quantidade desejada: ");
-        scanf("%d", &quantidadeDesejada);
-        printf("PreÁo: %f\n", cadastro.estoque * cadastro.preco);
+        printf("quantidade desejada: %d\n", cadastro.estoque);
+        printf("Pre√ßo: %.2f$\n", cadastro.estoque * cadastro.preco);
+        printf("tipo de pagamento : %d\n", tipodepagamento);
+        printf("======================================\n");
+        return 0;
         break;
-
 
     default:
+       return 0;
         break;
-    return 0;
     }
+    } while (opcao !=3);
+}
+return 0;
 }
